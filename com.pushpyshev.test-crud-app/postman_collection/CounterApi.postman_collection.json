@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "ffce144a-fd69-459d-bdb4-cb1b2f57f8d1",
+		"name": "CounterApi",
+		"description": "Коллекция для тестирования test-crud-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18809485"
+	},
+	"item": [
+		{
+			"name": "Read Counter",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/v1/counters?name=name43",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v1",
+						"counters"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "name43"
+						}
+					]
+				},
+				"description": "получает значение счетчика с указанным именем"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Counter",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"meta\" : {\n        \"channel\" : \"postman\"\n   },\n   \"data\" : {\n        \"name\" : \"newCount\",\n        \"value\" : 0\n   } \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/v1/counters/create",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v1",
+						"counters",
+						"create"
+					]
+				},
+				"description": "добавляет новый счетчик, с указанным именем"
+			},
+			"response": []
+		},
+		{
+			"name": "Increment Counter",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"meta\" : {\n        \"channel\" : \"postman\"\n   },\n   \"data\" : {\n        \"name\" : \"name5578790\"\n   } \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/v1/counters/increment",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v1",
+						"counters",
+						"increment"
+					]
+				},
+				"description": "увеличивает значение счетчика с указанным именем, возвращает его новое значение"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Counter",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"meta\" : {\n        \"channel\" : \"postman\"\n   },\n   \"data\" : {\n        \"name\" : \"name55\"\n   } \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:8443/api/v1/counters/delete",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v1",
+						"counters",
+						"delete"
+					]
+				},
+				"description": "удаляет счетчик с указанным именем"
+			},
+			"response": []
+		},
+		{
+			"name": "Read All Counters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:8443/api/v1/counters/all",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "8443",
+					"path": [
+						"api",
+						"v1",
+						"counters",
+						"all"
+					]
+				},
+				"description": "получает все счетчики (список имен и значений)"
+			},
+			"response": []
+		}
+	]
+}

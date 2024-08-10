@@ -1,0 +1,368 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "test-crud-app",
+    "description": "CRUD сервис для работы со счетчиком",
+    "contact": {
+      "name": "Пушпышев Антон Игоревич",
+      "email": "an.pushpyshev@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:8443"
+    }
+  ],
+  "paths": {
+    "/api/v1/counters/create": {
+      "post": {
+        "summary": "Создание счетчика",
+        "description": "Создание счетчика",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestItem«CreateCounterRequest»"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseItem«»"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/counters/delete": {
+      "delete": {
+        "summary": "Удаление счетчика",
+        "description": "Удаление счетчика",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestItem«DeleteCounterRequest»"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseItem«»"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/counters/all": {
+      "get": {
+        "summary": "Получение всех счетчиков",
+        "description": "Получение всех счетчиков",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseItem«ReadAllCountersResponse»"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/counters/increment": {
+      "patch": {
+        "summary": "Увеличение счетчика по имени",
+        "description": "Увеличение счетчика по имени",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestItem«DeleteCounterRequest»"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseItem«»"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/v1/counters?name=": {
+      "get": {
+        "summary": "Получение счетчика",
+        "description": "Получение счетчика",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseItem«ReadCounterResponse»"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ReadCounterResponse": {
+        "title": "ReadCounterResponse",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer"
+          }
+        }
+      },
+      "ResponseItem«ReadCounterResponse»": {
+        "title": "ResponseItem«ReadCounterResponse»",
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ReadCounterResponse"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "DeleteCounterRequest": {
+        "title": "DeleteCounterRequest",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateCounterRequest": {
+        "title": "CreateCounterRequest",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer"
+          }
+        }
+      },
+      "CounterData": {
+        "title": "CounterData",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer"
+          }
+        }
+      },
+      "ReadAllCountersResponse": {
+        "title": "ReadAllCountersResponse",
+        "type": "object",
+        "properties": {
+          "counters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CounterData"
+            }
+          }
+        }
+      },
+      "ResponseItem«ReadAllCountersResponse»": {
+        "title": "ResponseItem«ReadAllCountersResponse»",
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ReadAllCountersResponse"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "RequestItem«DeleteCounterRequest»": {
+        "title": "RequestItem«DeleteCounterRequest»",
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DeleteCounterRequest"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "RequestItem«CreateCounterRequest»": {
+        "title": "RequestItem«CreateCounterRequest»",
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CreateCounterRequest"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "RequestItem«»": {
+        "title": "RequestItem«»",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "[]]"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "Meta": {
+        "title": "Meta",
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "description": "Пример дополнительной информации для запроса",
+            "example": "postman"
+          }
+        }
+      },
+      "ResponseItem«»": {
+        "title": "ResponseItem«»",
+        "required": [
+          "actualTimestamp",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "actualTimestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data": {
+            "type": "[]"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorResponseItem"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponseItem": {
+        "title": "ErrorResponseItem",
+        "required": [
+          "code",
+          "locationId",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "locationId": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

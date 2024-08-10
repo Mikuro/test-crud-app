@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS counters
+(
+	id    SERIAL PRIMARY KEY,
+	name  TEXT NOT NULL,
+	value INT  NOT NULL DEFAULT (0)
+);

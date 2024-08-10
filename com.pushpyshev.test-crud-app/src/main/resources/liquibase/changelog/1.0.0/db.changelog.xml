@@ -1,0 +1,23 @@
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+	<changeSet id="20240809193946" author="a.pushpyshev">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<tableExists tableName="counters"/>
+			</not>
+		</preConditions>
+		<sqlFile dbms="postgresql" encoding="utf8" path="/liquibase/changelog/1.0.0/20240809_create_counters_table.sql"/>
+		<rollback>
+			<dropTable tableName="counters"/>
+		</rollback>
+	</changeSet>
+	<changeSet id="20240810190918" author="a.pushpyshev">
+		<sqlFile dbms="postgresql" encoding="utf8" path="liquibase/changelog/1.0.0/20240810_fill_table_data.sql"/>
+		<rollback>
+			<dropTable tableName="counters"/>
+			<sqlFile dbms="postgresql" encoding="utf8" path="/liquibase/changelog/1.0.0/20240809_create_counters_table.sql"/>
+		</rollback>
+	</changeSet>
+</databaseChangeLog>

@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  application:
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    build: .
+    depends_on:
+      - db
+    env_file:
+      - .env
+  db:
+    ports:
+      - "5432:5432"
+    image: postgres:12
+    volumes:
+      - /var/lib/postgresql:/var/lib/postgresql
+    env_file:
+      - .env
