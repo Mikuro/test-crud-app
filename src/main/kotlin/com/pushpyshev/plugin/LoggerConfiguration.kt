@@ -12,12 +12,13 @@ fun Application.configureLogging() {
     install(CallLogging) {}
 }
 
-suspend inline fun <R> withMDCContext(
-    businessThread: String, crossinline block: suspend CoroutineScope.() -> R
+suspend fun <R> withMDCContext(
+    businessThread: String, block: suspend CoroutineScope.() -> R
 ): R {
     val requestId = UUID.randomUUID().toString()
+    val mdcMap = mapOf("requestId" to requestId, "businessThread" to businessThread)
 
-    return withContext(MDCContext(mapOf("requestId" to requestId, "businessThread" to businessThread))) {
+    return withContext(MDCContext(mdcMap)) {
         try {
             block(this)
         } finally {

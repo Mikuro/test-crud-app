@@ -11,6 +11,7 @@ import org.jetbrains.exposed.sql.Database
 object DatabaseFactory {
     private lateinit var hikariDataSource: HikariDataSource
 
+    @Synchronized
     fun init(environment: ApplicationEnvironment) {
         val dbConfig = environment.config.config("ktor.database")
         val urlProperty = dbConfig.property("url").getString()
@@ -27,7 +28,7 @@ object DatabaseFactory {
             password = passwordProperty
             maximumPoolSize = maximumPoolSizeProperty
             isAutoCommit = false
-            transactionIsolation = "TRANSACTION_REPEATABLE_READ"
+            transactionIsolation = "TRANSACTION_READ_COMMITTED"
             validate()
         }
 
@@ -40,6 +41,7 @@ object DatabaseFactory {
         liquibase.update("main")
     }
 
+    @Synchronized
     fun close() {
         hikariDataSource.close()
     }

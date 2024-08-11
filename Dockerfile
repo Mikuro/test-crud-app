@@ -15,7 +15,6 @@ WORKDIR /app
 COPY --from=build /app/build/install/com.pushpyshev.test-crud-app /app
 COPY keystore.jks /app
 
-EXPOSE 8080:8080
 EXPOSE 8443:8443
 
 CMD ["./bin/com.pushpyshev.test-crud-app"]

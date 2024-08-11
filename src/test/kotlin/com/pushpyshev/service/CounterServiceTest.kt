@@ -4,20 +4,21 @@ import com.pushpyshev.exception.AppException
 import com.pushpyshev.model.dto.counter.CounterData
 import com.pushpyshev.model.dto.counter.create.CreateCounterRequest
 import com.pushpyshev.repository.CounterRepository
-import org.junit.Assert.assertThrows
+import kotlinx.coroutines.runBlocking
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class CounterServiceTest {
     private val counterRepository = mock(CounterRepository::class.java)
     private val counterService = CounterService(counterRepository)
 
     @Test
-    fun test_read_existing_counter() {
+    fun test_read_existing_counter(): Unit = runBlocking{
         val counterName = "testCounter"
         val counterData = CounterData(counterName, 10)
         `when`(counterRepository.findCounterByName(counterName)).thenReturn(counterData)
@@ -29,20 +30,23 @@ class CounterServiceTest {
     }
 
     @Test
-    fun test_replicate_read_nonexistent_counter() {
+    fun test_replicate_read_nonexistent_counter(): Unit = runBlocking{
         val counterName = "nonexistentCounter"
 
         `when`(counterRepository.findCounterByName(counterName)).thenReturn(null)
-
-        val exception = assertThrows(AppException::class.java) {
+        var exception: AppException? = null
+        try {
             counterService.readCounter(counterName)
+        } catch (e: AppException) {
+            exception = e
         }
+        assertNotNull(exception)
         assertEquals("ER002", exception.code)
         verify(counterRepository).findCounterByName(any())
     }
 
     @Test
-    fun test_successfully_create_new_counter_when_not_exist() {
+    fun test_successfully_create_new_counter_when_not_exist(): Unit = runBlocking {
         val counterRepository = mock<CounterRepository>()
         val counterService = CounterService(counterRepository)
         val createCounterRequest = CreateCounterRequest("test_counter", 0)
@@ -54,7 +58,7 @@ class CounterServiceTest {
     }
 
     @Test
-    fun test_successfully_increment_existing_counter_by_name() {
+    fun test_successfully_increment_existing_counter_by_name(): Unit = runBlocking {
         val counterRepository = mock<CounterRepository>()
         val counterService = CounterService(counterRepository)
         `when`(counterRepository.checkExistsAndIncrement(any())).thenReturn(1)
@@ -66,7 +70,7 @@ class CounterServiceTest {
     }
 
     @Test
-    fun test_successfully_delete_existing_counter() {
+    fun test_successfully_delete_existing_counter(): Unit = runBlocking {
         val counterRepository = mock<CounterRepository>()
         val counterService = CounterService(counterRepository)
         val counterName = "test_counter"
@@ -77,7 +81,7 @@ class CounterServiceTest {
     }
 
     @Test
-    fun test_successfully_retrieve_all_counters_with_limit() {
+    fun test_successfully_retrieve_all_counters_with_limit(): Unit = runBlocking {
         val counterRepository = mock<CounterRepository>()
         `when`(counterRepository.findAll(any())).thenReturn(listOf(CounterData("counter1", 10), CounterData("counter2", 20)))
         val counterService = CounterService(counterRepository)
